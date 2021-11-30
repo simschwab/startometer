@@ -21,6 +21,10 @@
     "node": "14.x"
   },
   "devDependencies": {
-    "nodemon": "^2.0.14"
+    "autoprefixer": "^10.4.0",
+    "live-server": "^1.2.1",
+    "nodemon": "^2.0.14",
+    "postcss-cli": "^9.0.2",
+    "tailwindcss": "^2.2.19"
   }
 }

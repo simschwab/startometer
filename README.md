@@ -1,3 +1,5 @@
 # Paragliding startometer
+## Start
+npm run dev
 
-small project for zhaw msc IoT Module
+http://localhost:3001/
