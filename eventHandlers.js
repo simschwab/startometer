@@ -4,10 +4,8 @@ exports.sendEvent = null;
 
 exports.registerEventHandlers = function (source) {
     source.addEventListener('MyEvent', handleMyEvent);
-    source.addEventListener('motion-detected', handleMotionDetection);
-    source.addEventListener('Training hat angefangen.', handleTrainingStarted);
-    source.addEventListener('Training ist beendet.', handleTrainingStopped);
-    source.addEventListener('kadenz', handleCadence);
+
+    source.addEventListener('SensorData', handleData);
 
 }
 
@@ -39,64 +37,21 @@ function handleMyEvent(event) {
     }
 }
 
-function handleMotionDetection(event) {
+function handleData(event) {
+
+    var bme688 = JSON.parse(event.data).data;
 
     var data = {
         eventName: event.type,
-        eventData: JSON.parse(event.data).data, // the value of the event
-        deviceId: JSON.parse(event.data).coreid,
-        timestamp: JSON.parse(event.data).published_at
-    };
-
-    try {        
-        data.myMessage = "Motion Detected";
-
-        logger.logOne("MyDB", "MotionDetected", data);
-
-        exports.sendEvent(data);
-    } catch (error) {
-        console.log("Could not handle event: " + JSON.stringify(event) + "\n");
-        console.log(error)
-    }
-}
-
-function handleTrainingStarted(event) {
-    var data = {
-        eventName: event.type,
-        eventData: JSON.parse(event.data).data,
-        deviceId: JSON.parse(event.data).coreid,
+        BME688: JSON.parse(bme688),
+        Anemometer: 'value',
         timestamp: JSON.parse(event.data).published_at,
-        repcounter: JSON.parse(event.data).repcounter
-    };
-
-    try {        
-        data.myMessage = "Training started";
-
-        logger.logOne("MyDB", "TrainingStarted", data);
-
-        exports.sendEvent(data);
-    } catch (error) {
-        console.log("Could not handle event: " + JSON.stringify(event) + "\n");
-        console.log(error)
-    }
-}
-
-function handleTrainingStopped(event) {
-
-    var data = {
-        eventName: event.type,
-        eventData: JSON.parse(event.data).data,
         deviceId: JSON.parse(event.data).coreid,
-        timestamp: JSON.parse(event.data).published_at,
-        repcounter: JSON.parse(event.data).repcounter,
-        cadence: JSON.parse(event.data).kadenz
-
     };
 
-    try {        
-        data.myMessage = "Training stopped";
 
-        logger.logOne("MyDB", "TrainingStopped", data);
+    try {        
+        logger.logOne("Measurements", "SensorData", data);
 
         exports.sendEvent(data);
     } catch (error) {
@@ -105,25 +60,3 @@ function handleTrainingStopped(event) {
     }
 }
 
-function handleCadence(event) {
-
-    var data = {
-        eventName: event.type,
-        eventData: JSON.parse(event.data).data,
-        deviceId: JSON.parse(event.data).coreid,
-        timestamp: JSON.parse(event.data).published_at,
-        repcounter: JSON.parse(event.data).repcounter,
-        cadence: JSON.parse(event.data).kadenz
-    };
-
-    try {        
-        data.myMessage = "Cadence";
-
-        logger.logOne("MyDB", "Cadence", data);
-
-        exports.sendEvent(data);
-    } catch (error) {
-        console.log("Could not handle event: " + JSON.stringify(event) + "\n");
-        console.log(error)
-    }
-}
