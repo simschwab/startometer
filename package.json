@@ -25,6 +25,7 @@
     "live-server": "^1.2.1",
     "nodemon": "^2.0.14",
     "postcss-cli": "^9.0.2",
+    "prettier": "2.5.1",
     "tailwindcss": "^2.2.19"
   }
 }
