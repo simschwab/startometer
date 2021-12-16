@@ -37,7 +37,7 @@ function handleMyEvent(event) {
 }
 
 function handleData(event) {
-  var bme688 = JSON.parse(event.data).data;
+  var sensorData = JSON.parse(event.data).data;
 
   var startDecision = false;
 
@@ -49,8 +49,7 @@ function handleData(event) {
 
   var data = {
     eventName: event.type,
-    BME688: JSON.parse(bme688),
-    Anemometer: "value",
+    SensorData: JSON.parse(sensorData),
     timestamp: JSON.parse(event.data).published_at,
     deviceId: JSON.parse(event.data).coreid,
   };

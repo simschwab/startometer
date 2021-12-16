@@ -13,3 +13,34 @@ function initSSE() {
   }
 }
 initSSE();
+
+function updateVariables(data) {
+  if (data.eventName === "SensorData") {
+    var temperature = data.SensorData.temperatureInC + " °C";
+    var humidity = data.SensorData.humidityPercentage + " %";
+    var pressure = data.SensorData.pressureHpa + " hPa";
+    var altitude = data.SensorData.approxAltitudeInM + " m";
+    var wind = data.SensorData.windspeedInKmh + " km/h";
+  }
+
+  document.getElementById("latestTemperature").innerHTML = temperature;
+  document.getElementById("latestHumidity").innerHTML = humidity;
+  document.getElementById("latestpressure").innerHTML = pressure;
+  document.getElementById("latestAltitude").innerHTML = altitude;
+  document.getElementById("latestWind").innerHTML = wind;
+
+  var date = new Date();
+  var localTime = date.toLocaleTimeString();
+
+  document.getElementById("time").innerHTML = localTime;
+
+}
+
+var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var d = new Date();
+var day = weekday[d.getDay()];
+var date = d.toLocaleDateString();
+document.getElementById("weekday").innerHTML = day;
+document.getElementById("date").innerHTML = date;
+
+

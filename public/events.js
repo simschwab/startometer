@@ -5,7 +5,8 @@ function connect() {
       var source = new EventSource(url);
       source.onmessage = (event) => {
         var message = event.data;
-        document.getElementById("lastmessage").innerHTML = message;
+        document.getElementById("latestevent").innerHTML = message;
+
         document.getElementById("allmessages").innerHTML +=
           "<li>" + message + "</li>";
       };
