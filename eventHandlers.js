@@ -42,7 +42,7 @@ function handleData(event) {
   var startDecision = false;
 
   function startLogic() {
-    if (1 > 2) {
+    if (sensorData) {
       startDecision = true;
     }
   }

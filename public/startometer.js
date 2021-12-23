@@ -16,11 +16,12 @@ initSSE();
 
 function updateVariables(data) {
   if (data.eventName === "SensorData") {
-    var temperature = data.SensorData.temperatureInC + " °C";
-    var humidity = data.SensorData.humidityPercentage + " %";
-    var pressure = data.SensorData.pressureHpa + " hPa";
-    var altitude = data.SensorData.approxAltitudeInM + " m";
-    var wind = data.SensorData.windspeedInKmh + " km/h";
+    var temperature = data.SensorData.temperatureInC.toFixed(0) + " °C";
+    var humidity = data.SensorData.humidityPercentage.toFixed(0) + " %";
+    var pressure = data.SensorData.pressureHpa.toFixed(0) + " hPa";
+    var altitude = data.SensorData.approxAltitudeInM.toFixed(0) + " m";
+    var wind = data.SensorData.windspeedInKmh.toFixed(1) + " km/h";
+    var startDecision = data.SensorData.startDecision;
   }
 
   document.getElementById("latestTemperature").innerHTML = temperature;
@@ -28,19 +29,25 @@ function updateVariables(data) {
   document.getElementById("latestpressure").innerHTML = pressure;
   document.getElementById("latestAltitude").innerHTML = altitude;
   document.getElementById("latestWind").innerHTML = wind;
+  document.getElementById("startDec").innerHTML = startDecision;
 
   var date = new Date();
   var localTime = date.toLocaleTimeString();
 
   document.getElementById("time").innerHTML = localTime;
-
 }
 
-var weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+var weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 var d = new Date();
 var day = weekday[d.getDay()];
 var date = d.toLocaleDateString();
 document.getElementById("weekday").innerHTML = day;
 document.getElementById("date").innerHTML = date;
-
-
